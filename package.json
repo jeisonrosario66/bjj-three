@@ -1,0 +1,33 @@
+{
+  "name": "three",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~4.0.0",
+    "@react-three/drei": "^9.119.0",
+    "@react-three/fiber": "^8.17.10",
+    "3d-force-graph": "^1.74.2",
+    "d3-force": "^3.0.0",
+    "expo": "^52.0.0",
+    "expo-gl": "^15.0.2",
+    "expo-status-bar": "~2.0.0",
+    "math-random": "^2.0.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.76.3",
+    "react-native-web": "~0.19.13",
+    "three": "^0.171.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@types/react": "~18.3.12",
+    "typescript": "^5.3.3"
+  },
+  "private": true
+}
