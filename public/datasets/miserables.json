@@ -1,15 +1,24 @@
 {
   "nodes": [
-    { "id": "1", "group": 1, "name": "Jean Valjean", "color": "red" },
-    { "id": "2", "group": 1, "name": "Javert", "color": "blue" },
-    { "id": "3", "group": 2, "name": "Fantine", "color": "green" },
-    { "id": "4", "group": 2, "name": "Cosette", "color": "purple" },
-    { "id": "5", "group": 3, "name": "Marius", "color": "orange" }
+    { "id": "1", "group": "control", "name": "100 Kilos" },
+    { "id": "2", "group": "control", "name": "Montura" },
+    { "id": "3", "group": "sumision", "name": "Palanca" },
+    { "id": "4", "group": "sumision", "name": "Crucifijo" },
+    { "id": "5", "group": "control", "name": "Espalda" },
+    { "id": "6", "group": "sumision", "name": "Twister" },
+    { "id": "7", "group": "pasaje", "name": "Toreo de Guardia" },
+    { "id": "8", "group": "control", "name": "Norte - Sur" }
   ],
   "links": [
-    { "source": "1", "target": "2" },
-    { "source": "1", "target": "3" },
-    { "source": "2", "target": "4" },
-    { "source": "3", "target": "5" }
+    { "source": "1", "target": "2", "isBidirectional": true },
+    { "source": "1", "target": "3", "isBidirectional": false },
+    { "source": "1", "target": "4", "isBidirectional": true },
+    { "source": "1", "target": "5", "isBidirectional": false },
+    { "source": "5", "target": "3", "isBidirectional": false },
+    { "source": "2", "target": "3", "isBidirectional": false },
+    { "source": "5", "target": "6", "isBidirectional": false },
+    { "source": "7", "target": "1", "isBidirectional": false },
+    { "source": "8", "target": "1", "isBidirectional": true },
+    { "source": "8", "target": "5", "isBidirectional": false }
   ]
 }
