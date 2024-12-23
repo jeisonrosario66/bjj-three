@@ -6,3 +6,4 @@ export {GraphTexture} from './GraphTexture';
 export {GraphViz} from './GraphViz';
 export {GraphScene} from './GraphScene';
 export {GraphSettings} from './GraphSettings';
+export {PanelData} from './PanelData';

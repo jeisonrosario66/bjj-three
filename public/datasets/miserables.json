@@ -1,13 +1,14 @@
 {
   "nodes": [
-    { "id": "1", "group": "control", "name": "100 Kilos" },
+    { "id": "1", "group": "control", "name": "100 Kilos", "url": "https://www.youtube.com/watch?v=dKdNHlC2mjk", "start": "21", "end": "70" },
     { "id": "2", "group": "control", "name": "Montura" },
     { "id": "3", "group": "sumision", "name": "Palanca" },
-    { "id": "4", "group": "sumision", "name": "Crucifijo" },
+    { "id": "4", "group": "sumision", "name": "Crucifijo", "url": "https://www.youtube.com/watch?v=aAGIGxOHIg0" },
     { "id": "5", "group": "control", "name": "Espalda" },
     { "id": "6", "group": "sumision", "name": "Twister" },
-    { "id": "7", "group": "pasaje", "name": "Toreo de Guardia" },
-    { "id": "8", "group": "control", "name": "Norte - Sur" }
+    { "id": "7", "group": "pasaje", "name": "Toreo de Guardia", "url": "https://www.youtube.com/watch?v=bqilRrhC96c", "start": "0", "end": "6" },
+    { "id": "8", "group": "control", "name": "Norte - Sur", "url": "https://www.youtube.com/watch?v=YiWL708ldIw", "start":"23", "end":"80" },
+    { "id": "9", "group": "sumision", "name": "Kimura", "url": "https://www.youtube.com/watch?v=/GO3zfaX7Tc0"}
   ],
   "links": [
     { "source": "1", "target": "2", "isBidirectional": true },
@@ -19,6 +20,7 @@
     { "source": "5", "target": "6", "isBidirectional": false },
     { "source": "7", "target": "1", "isBidirectional": false },
     { "source": "8", "target": "1", "isBidirectional": true },
-    { "source": "8", "target": "5", "isBidirectional": false }
+    { "source": "8", "target": "5", "isBidirectional": false },
+    { "source": "1", "target": "9", "isBidirectional": true }
   ]
 }
