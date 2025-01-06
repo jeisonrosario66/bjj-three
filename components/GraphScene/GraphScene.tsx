@@ -1,23 +1,24 @@
 // components/GraphScene.tsx
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Stars } from "@react-three/drei"; // Componente para renderizar un fondo estrellado
 import GraphViz from "../GraphViz/GraphViz"; // Componente para renderizar el grafo 3D
 import { GraphLink } from "../../src/config/config"; // Tipo para los enlaces del grafo
 
 // Define las props para GraphScene
 type GraphSceneProps = {
+  isBrilloActivo: boolean; // Prop para controlar el brillo
   orbitControlsRef: React.MutableRefObject<any>; // Referencia para los controles de la cámara
   onNodeSelect: (node: any) => void; // Función para recibir la selección de nodo
-  setSelectedNode: React.Dispatch<React.SetStateAction<any>>; // Para actualizar el nodo seleccionado
-  onConnectedLinksUpdate: (links: GraphLink[]) => void; // Función para actualizar los enlaces conectados
+  onLinkSelect: (link: any) => void; // Función para recibir la selección de enlace
 };
 
 const GraphScene: React.FC<GraphSceneProps> = ({
+  isBrilloActivo,
   orbitControlsRef,
   onNodeSelect,
-  setSelectedNode,
-  onConnectedLinksUpdate,
+  onLinkSelect,
 }) => {
+
   return (
     <>
       {/* Fondo estrellado */}
@@ -32,10 +33,10 @@ const GraphScene: React.FC<GraphSceneProps> = ({
       />
       {/* Grafo 3D */}
       <GraphViz
+        onLinkSelect={onLinkSelect}
+        isBrilloActivo={isBrilloActivo} // Pasa el valor del brillo como prop
         orbitControlsRef={orbitControlsRef} // Referencia para los controles de la cámara
         onNodeSelect={onNodeSelect} // Función para manejar la selección de nodo
-        setSelectedNode={setSelectedNode} // Función para actualizar el nodo seleccionado
-        onConnectedLinksUpdate={onConnectedLinksUpdate} // Función para actualizar los enlaces conectados
       />
       {/* Luces */}
       <ambientLight intensity={8} /> {/* Luz ambiental */}
