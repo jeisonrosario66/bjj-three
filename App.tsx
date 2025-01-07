@@ -1,7 +1,7 @@
 // App.tsx
 import React, { useRef, useState, useCallback } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei"; // Controles de cámara interactivos
+import { OrbitControls, Html } from "@react-three/drei"; // Controles de cámara interactivos
 import {
   StyleSheet,
   View,
@@ -12,12 +12,13 @@ import {
   Button,
 } from "react-native";
 import GraphScene from "./components/GraphScene/GraphScene";
+import AddNodeComponent from "./components/AddNodeComponent/AddNodeComponent";
 import NodeInfoPanel from "./components/PanelData/PanelData";
 import { configGlobal, NodeType, GraphLink } from "./src/config/config";
-
+import ModalMenuGeneral from "./components/ModalMenuGeneral/ModalMenuGeneral";
 export default function App() {
   // Ref para los controles
-  const orbitControlsRef = useRef(null); 
+  const orbitControlsRef = useRef(null);
   // Estado para la visibilidad del panel
   const [isBrilloActivo, setIsBrilloActivo] = useState(true); // Estado para el brillo
   // Estado para almacenar el nodo seleccionado
@@ -26,29 +27,11 @@ export default function App() {
   const [selectedLink, setSelectedLink] = useState<GraphLink | null>(null);
   // Estado para almacenar los enlaces conectados
   const [connectedLinks, setConnectedLinks] = useState<GraphLink[]>([]);
-  const [isMenuVisible, setIsMenuVisible] = useState(false); // Estado para mostrar/ocultar el menú
   const [newNode, setNewNode] = useState({ name: "", group: "", url: "" });
   const [isAddNodeVisible, setIsAddNodeVisible] = useState(false); // Estado para mostrar el modal de agregar nodo
+  const [isMenuVisible, setIsMenuVisible] = useState(true); // Estado para mostrar/ocultar el menú
+  const [isPanelExpanded, setIsPanelExpanded] = useState(false); // Estado para recibir cambios
 
-
-
-
-  /**
-   * Función para agregar un nuevo nodo
-   */
-  const handleAddNode = () => {
-    // Aquí puedes implementar la lógica para agregar un nuevo nodo
-    console.log("Nuevo nodo agregado:", newNode);
-    setNewNode({ name: "", group: "", url: "" }); // Limpia el formulario
-    toggleMenu(); // Cierra el modal
-  };
-
-  // Función para mostrar el formulario de agregar nodo
-  const addNodo = () => {
-    setIsMenuVisible(false); // Cierra el menú
-    setIsAddNodeVisible(true); // Abre el modal para agregar nodo
-  };
-  
   /**
    * Función para actualizar el nodo seleccionado
    * @param {NodeType} node - Nodo seleccionado
@@ -57,6 +40,8 @@ export default function App() {
     setSelectedNode(node); // Actualiza el estado con el nodo seleccionado
     setSelectedLink(null); // Reinicia el enlace seleccionado
     setIsBrilloActivo(true); // Cambia el estado de brillo
+    setIsMenuVisible(false);
+    
   };
 
   /**
@@ -67,7 +52,7 @@ export default function App() {
     setSelectedLink(link); // Actualiza el estado con el nodo seleccionado
     setSelectedNode(null); // Reinicia el nodo seleccionado
     setIsBrilloActivo(false); // Cambia el estado de brillo
-    console.log("Link seleccionado", link);
+    setIsMenuVisible(false);
   };
 
   /**
@@ -78,28 +63,35 @@ export default function App() {
     setSelectedLink(null); // Desselecciona el enlace
     setSelectedNode(null); // Desselecciona el nodo
     setIsBrilloActivo(false); // Cambia el estado de brillo
+    setIsMenuVisible(true);
   };
 
-  // Manejador para alternar el menú de hamburguesa
-  const toggleMenu = () => {
-    setSelectedLink(null); // Desselecciona el enlace
-    setSelectedNode(null); // Desselecc
-    setIsMenuVisible(!isMenuVisible);
-  };
 
-  
   return (
     <View style={styles.container}>
+      <AddNodeComponent 
+      isAddNodeVisible={isAddNodeVisible}
+      setIsAddNodeVisible={setIsAddNodeVisible}
+      setIsMenuVisible={setIsMenuVisible}
+      />
       {/* Panel de información del nodo */}
+      <ModalMenuGeneral
+        selectedNode={setSelectedNode}
+        selectedLink={setSelectedLink}
+        isBrilloActivo={setIsBrilloActivo}
+        isMenuVisible={isMenuVisible}
+        setIsMenuVisible={setIsMenuVisible}
+        setIsAddNodeVisible={setIsAddNodeVisible}
+      />
+
       <NodeInfoPanel
         selectedNode={selectedNode}
         onClose={closeNodePanel}
+        IsPanelExpanded={setIsPanelExpanded} // Pasamos el callback
         links={connectedLinks}
         selectedLink={selectedLink}
         videoUrl={selectedNode?.url}
       />
-
-      {/* Canvas para renderizar la escena 3D */}
       <Canvas
         camera={{ position: configGlobal.cameraPosition, fov: 50 }}
         style={{ background: configGlobal.canvasBackgraundColor }}
@@ -117,62 +109,7 @@ export default function App() {
           maxDistance={configGlobal.cameraMaxDistance}
           minDistance={configGlobal.cameraMinDistance}
         />
-        |
       </Canvas>
-
-      {/* Menú de hamburguesa */}
-      <TouchableOpacity style={styles.menuButton} onPress={toggleMenu}>
-        <Text style={styles.menuText}>☰</Text>
-      </TouchableOpacity>
-
-      {/* Modal para agregar nodos */}
-      <Modal visible={isMenuVisible} transparent={true} animationType="slide">
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Agregar Nodo</Text>
-            <TextInput
-              placeholder="Nombre del Nodo"
-              style={styles.input}
-              value={newNode.name}
-              onChangeText={(text) => setNewNode({ ...newNode, name: text })}
-            />
-            <TextInput
-              placeholder="Grupo"
-              style={styles.input}
-              value={newNode.group}
-              onChangeText={(text) => setNewNode({ ...newNode, group: text })}
-            />
-            <TextInput
-              placeholder="URL (opcional)"
-              style={styles.input}
-              value={newNode.url}
-              onChangeText={(text) => setNewNode({ ...newNode, url: text })}
-            />
-            <View style={styles.buttonContainer}>
-              <Button title="Agregar" onPress={handleAddNode} />
-              <Button title="Cancelar" onPress={toggleMenu} color="red" />
-            </View>
-          </View>
-        </View>
-      </Modal> 
-
-      {/* Modal para el menú */}
-      <Modal visible={isMenuVisible} transparent={true} animationType="slide">
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Opciones</Text>
-
-            <TouchableOpacity onPress={addNodo}>
-              <Text style={styles.menuButtonHover} >Agregar Nodo</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={toggleMenu}>
-              <Text style={styles.closeButton}>Cerrar</Text>
-            </TouchableOpacity>
-            {/* Aquí puedes agregar el formulario o más opciones */}
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 }
@@ -186,64 +123,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-
-  menuText: {
-    color: "#fff",
-    fontSize: 18,
-  },
-
-  closeButton: {
-    marginTop: 20,
-    color: "blue",
-    fontSize: 16,
-  },
-
-  menuButton: {
+  overlay: {
     position: "absolute",
-    top: 40,
-    right: 20,
-    backgroundColor: "black",
-    borderRadius: 25,
-    padding: 10,
-  },
-  menuButtonText: {
-    color: "white",
-    fontSize: 18,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContent: {
-    width: "80%",
-    padding: 20,
-    backgroundColor: "white",
-    borderRadius: 10,
-    elevation: 10,
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
-    width: "100%",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-
-  menuButtonHover: {
-    cursor: "pointer",
-    fontSize: 16,
-    marginBottom: 20,
+    top: 10,
+    left: 10,
+    zIndex: 10,
   },
 });

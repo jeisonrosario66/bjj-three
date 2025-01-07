@@ -21,12 +21,12 @@ export const useCameraAnimation = (camera: THREE.PerspectiveCamera, orbitControl
     if (isAnimating) {
       const currentPos = camera.position; // Posición actual de la cámara
       const target = targetPosition; // Posición objetivo
-      const speed = 0.1; // Velocidad de la animación
+      const speed = 0.08;     // Velocidad de la animación
       const newPos = new THREE.Vector3().lerpVectors(currentPos, target, speed); // Interpolación lineal entre la posición actual y la objetivo
       camera.position.copy(newPos); // Actualiza la posición de la cámara
 
       // Si la cámara está cerca de la posición objetivo, detiene la animación
-      if (newPos.distanceTo(target) < 0.2) {
+      if (newPos.distanceTo(target) < 0.1) {
         setIsAnimating(false); // Detiene la animación
         camera.position.copy(target); // Asegura que la cámara esté exactamente en la posición objetivo
 

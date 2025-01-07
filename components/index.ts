@@ -7,3 +7,6 @@ export {GraphViz} from './GraphViz';
 export {GraphScene} from './GraphScene';
 export {GraphSettings} from './GraphSettings';
 export {PanelData} from './PanelData';
+export {ModalMenuGeneral} from './ModalMenuGeneral';
+export {AddNodeComponent} from './AddNodeComponent';
+export {BottonCloseComponent} from './BottonCloseComponent';

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -15,10 +15,16 @@ import {
   NodeType,
 } from "../../src/config/config";
 import ForceGraph2D from "react-force-graph-2d";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 import { GraphLink } from "../../src/config/config";
 import { Dimensions } from "react-native";
 import { WebView } from "react-native-webview";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"; // O el ícono que prefieras
+import BottonCloseComponent from "../BottonCloseComponent/BottonCloseComponent";
 // Función para capitalizar la primera letra de una cadena
 const capitalizeFirstLetter = (string: string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -33,6 +39,7 @@ const getBackgroundColor = (group: string) => {
 type NodeInfoPanelProps = {
   selectedNode: NodeType | null; // Nodo seleccionado
   selectedLink: GraphLink | null; // Enlace seleccionado
+  IsPanelExpanded: React.SetStateAction<any>;
   onClose: () => void; // Función para cerrar el panel
   links: GraphLink[]; // Lista de enlaces conectados
   videoUrl?: string; // URL del video de YouTube (opcional)
@@ -42,6 +49,7 @@ type NodeInfoPanelProps = {
 const NodeInfoPanel: React.FC<NodeInfoPanelProps> = ({
   selectedNode,
   selectedLink,
+  IsPanelExpanded,
   onClose,
   links,
   videoUrl,
@@ -50,6 +58,7 @@ const NodeInfoPanel: React.FC<NodeInfoPanelProps> = ({
 
   const onExpand = () => {
     setIsExpanded(!isExpanded); // Alterna entre expandido y colapsado
+    IsPanelExpanded(isExpanded);
   };
 
   const [isEnabled, setIsEnabled] = useState(false);
@@ -73,44 +82,15 @@ const NodeInfoPanel: React.FC<NodeInfoPanelProps> = ({
           {selectedNode ? `Información del Nodo` : `Información del Enlace`}
         </Text>
       </View>
-      <View style={styles.buttonContainer}>
-        <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleSwitch}
-          value={isEnabled}
-          style={styles.switch}
-        />
 
-        {/* Botón de expandir */}
-        <TouchableOpacity
-          style={styles.expandButton}
-          onPress={() => {
-            onExpand();
-          }}
-        >
-          {/* Ícono personalizado */}
-          <Icon
-            name={isExpanded ? "arrow-collapse" : "arrow-expand"}
-            size={24}
-            color="white"
-          />
-        </TouchableOpacity>
-
-        {/* Botón de cierre */}
-        <TouchableOpacity
-          style={styles.closeButton}
-          onPress={() => {
-            onClose();
-          }}
-        >
-          {/* Ícono personalizado */}
-          <Icon name="window-close" size={24} color="white" />
-          {/* También podrías usar una imagen */}
-          {/* <Image source={require("../../assets/close-icon.png")} style={styles.icon} /> */}
-        </TouchableOpacity>
-      </View>
+      {/* Botón de cierre */}
+      <BottonCloseComponent
+        handleOnClose={onClose}
+        handleonExpand={onExpand}
+        toggleSwitch={toggleSwitch}
+        isExpanded={isExpanded}
+        isEnabled={isEnabled}
+      />
 
       <Text>
         <Text style={styles.titulos}>{selectedNode ? "ID: " : ""} </Text>
@@ -129,12 +109,20 @@ const NodeInfoPanel: React.FC<NodeInfoPanelProps> = ({
 
       <Text>
         <Text style={styles.titulos}>{selectedLink ? "Origen: " : ""}</Text>
-        <Text>{selectedLink ? (selectedLink.source as unknown as GraphLink).name : ``}</Text>
+        <Text>
+          {selectedLink
+            ? (selectedLink.source as unknown as GraphLink).name
+            : ``}
+        </Text>
       </Text>
 
       <Text>
         <Text style={styles.titulos}>{selectedLink ? "Destino: " : ""}</Text>
-        <Text>{selectedLink ? (selectedLink.target as unknown as GraphLink).name : ``}</Text>
+        <Text>
+          {selectedLink
+            ? (selectedLink.target as unknown as GraphLink).name
+            : ``}
+        </Text>
       </Text>
 
       {/* {videoUrl && (
@@ -166,30 +154,13 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     borderColor: "#fff",
     borderWidth: 1,
-    minWidth: 290,
+    minWidth: 300,
+    filter: configGlobal.shadowGeneral,
   },
   panelOpaco: {
     opacity: 1,
   },
-  buttonContainer: {
-    top: 10,
-    right: 10,
-    flexDirection: "row",
-    position: "absolute",
-    width: 110,
-    justifyContent: "space-between",
-  },
-  switch: {},
-  closeButton: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    borderRadius: 10,
-    cursor: "pointer",
-  },
-  expandButton: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    borderRadius: 10,
-    cursor: "pointer",
-  },
+
   collapsedPanel: {},
   expandedPanel: {
     width: width - 40,

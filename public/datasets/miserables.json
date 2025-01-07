@@ -8,7 +8,28 @@
     { "id": "6", "group": "sumision", "name": "Twister" },
     { "id": "7", "group": "pasaje", "name": "Toreo de Guardia", "url": "https://www.youtube.com/watch?v=bqilRrhC96c", "start": "0", "end": "6" },
     { "id": "8", "group": "control", "name": "Norte - Sur", "url": "https://www.youtube.com/watch?v=YiWL708ldIw", "start":"23", "end":"80" },
-    { "id": "9", "group": "sumision", "name": "Kimura", "url": "https://www.youtube.com/watch?v=/GO3zfaX7Tc0"}
+    { "id": "9", "group": "sumision", "name": "Kimura", "url": "https://www.youtube.com/watch?v=/GO3zfaX7Tc0"},
+
+
+    { "id": "10", "group": "sumision", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "11", "group": "sumision", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "11", "group": "sumision", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "12", "group": "sumision", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "13", "group": "sumision", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "14", "group": "pasaje", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "15", "group": "pasaje", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "16", "group": "pasaje", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "17", "group": "pasaje", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "18", "group": "pasaje", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "19", "group": "control", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "20", "group": "control", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "21", "group": "control", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "22", "group": "control", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "23", "group": "control", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "24", "group": "control", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "25", "group": "pasaje", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "26", "group": "pasaje", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"},
+    { "id": "27", "group": "pasaje", "name": "Back Step", "url": "https://www.youtube.com/watch?v=3mNJT6dcwyA"}
   ],
   "links": [
     { "source": "1", "target": "2", "isBidirectional": true },
@@ -21,7 +42,16 @@
     { "source": "7", "target": "1", "isBidirectional": false },
     { "source": "8", "target": "1", "isBidirectional": true },
     { "source": "8", "target": "5", "isBidirectional": false },
-    { "source": "1", "target": "9", "isBidirectional": true }
+    { "source": "1", "target": "9", "isBidirectional": true },
+
+
+    { "source": "26", "target": "20", "isBidirectional": false },
+    { "source": "20", "target": "21", "isBidirectional": false },
+    { "source": "20", "target": "10", "isBidirectional": false },
+    { "source": "10", "target": "11", "isBidirectional": false },
+    { "source": "12", "target": "20", "isBidirectional": false },
+    { "source": "19", "target": "24", "isBidirectional": false }
+
   ]
 }
   

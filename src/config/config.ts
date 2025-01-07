@@ -8,11 +8,15 @@ const configGlobal = {
   arrowsColor: "rgb(88, 88, 88)", // Color de las flechas
   panelColor: "rgb(177, 177, 177)", // Color del panel de información
   cameraPosition: [200, 0, 0] as [number, number, number], // Posición inicial de la cámara
-  cameraMaxDistance: 400, // Distancia máxima de la cámara
+  cameraMaxDistance: 800, // Distancia máxima de la cámara
   cameraMinDistance: 10, // Distancia mínima de la cámara
   nodeClickDistance: 70, // Distancia al nodo despues del click
-  linkClickDistance: 60, // Distancia al link despues del click
-  DataBaseDir: "datasets/miserables.json" // Directorio de la base de datos
+  linkClickDistance: 100, // Distancia al link despues del click
+  DataBaseDir: "datasets/miserables.json", // Directorio de la base de datos
+  iconMenuBackgraundColor: "rgb(189, 189, 189)",
+  itemsMenuColor: "rgb(138, 137, 137)",
+  addNodoPanelColor: "rgb(255, 255, 255)",
+  shadowGeneral: "drop-shadow(0px 2px 8px rgba(255, 255, 255, 0.75))",
 };
 
 // Colores asignados a los grupos de nodos
